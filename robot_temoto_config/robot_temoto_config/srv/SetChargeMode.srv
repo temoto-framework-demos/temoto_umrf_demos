@@ -1,0 +1,5 @@
+int32 CHARGING=0
+int32 DISCHARGING=1
+int32 charge_mode
+---
+bool success

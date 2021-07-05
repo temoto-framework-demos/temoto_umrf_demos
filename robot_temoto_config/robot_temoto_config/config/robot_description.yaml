@@ -1,0 +1,20 @@
+Robots:
+- robot_name: "husky_sim"
+  description: "husky simulation"
+  reliability: 0.8
+  urdf:
+    package_name: "husky_description"
+    executable: "urdf/husky.urdf.xacro"
+  navigation:
+    controller:
+      package_name: "robot_temoto_config"
+      executable: "husky_sim_controller.launch"
+      global_planner: "navfn/NavfnROS"
+      local_planner: "base_local_planner/TrajectoryPlannerROS"
+      scan_topic: "scan"
+      pose_topic: "amcl_pose"
+    driver:
+      package_name: "robot_temoto_config" 
+      executable: "husky_sim_driver.launch"
+      odom_topic: "odometry/filtered"
+      cmd_vel_topic: "cmd_vel"

@@ -1,0 +1,19 @@
+{
+    "graph_name": "ta_robot_keyboard_twist",
+    "graph_description": "",
+    "graph_state": 1,
+    "umrf_actions": [
+        {
+            "name": "TaRobotKeyboardTwist",
+            "package_name": "ta_robot_keyboard_twist",
+            "id": 0,
+            "effect": "asynchronous",
+            "input_parameters": {
+                "robot_name": {
+                    "pvf_type": "string",
+                    "pvf_value": "vaultbot_sim"
+                }
+            }
+        }
+    ]
+}

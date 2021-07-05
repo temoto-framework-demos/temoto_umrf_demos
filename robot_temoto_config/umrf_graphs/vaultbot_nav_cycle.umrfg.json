@@ -1,0 +1,128 @@
+{
+    "graph_name": "vaultbot_nav_cycle",
+    "graph_description": "",
+    "graph_state": 0,
+    "umrf_actions": [
+        {
+            "name": "TaNavigateRobot",
+            "package_name": "ta_navigate_robot",
+            "description": "Vaultbot navigation",
+            "id": 0,
+            "effect": "synchronous",
+            "execute_first": true,
+            "input_parameters": {
+                "pose_2d": {
+                    "x": {
+                        "pvf_type": "number",
+                        "pvf_value": -7.0
+                    },
+                    "y": {
+                        "pvf_type": "number",
+                        "pvf_value": 2.0
+                    },
+                    "yaw": {
+                        "pvf_type": "number",
+                        "pvf_value": 1.57
+                    }
+                },
+                "robot_name": {
+                    "pvf_type": "string",
+                    "pvf_value": "vaultbot_sim"
+                }
+            },
+            "children": [
+                {
+                    "name": "TaNavigateRobot",
+                    "id": 1
+                }
+            ],
+            "parents": [
+                {
+                    "name": "TaNavigateRobot",
+                    "id": 2,
+                    "required": false
+                }
+            ]
+        },
+        {
+            "name": "TaNavigateRobot",
+            "package_name": "ta_navigate_robot",
+            "description": "Vaultbot navigation",
+            "id": 1,
+            "effect": "synchronous",
+            "input_parameters": {
+                "pose_2d": {
+                    "x": {
+                        "pvf_type": "number",
+                        "pvf_value": -4.0
+                    },
+                    "y": {
+                        "pvf_type": "number",
+                        "pvf_value": 8.5
+                    },
+                    "yaw": {
+                        "pvf_type": "number",
+                        "pvf_value": 0.0
+                    }
+                },
+                "robot_name": {
+                    "pvf_type": "string",
+                    "pvf_value": "vaultbot_sim"
+                }
+            },
+            "children": [
+                {
+                    "name": "TaNavigateRobot",
+                    "id": 2
+                }
+            ],
+            "parents": [
+                {
+                    "name": "TaNavigateRobot",
+                    "id": 0,
+                    "required": true
+                }
+            ]
+        },
+        {
+            "name": "TaNavigateRobot",
+            "package_name": "ta_navigate_robot",
+            "description": "Vaultbot navigation",
+            "id": 2,
+            "effect": "synchronous",
+            "input_parameters": {
+                "pose_2d": {
+                    "x": {
+                        "pvf_type": "number",
+                        "pvf_value": 0.0
+                    },
+                    "y": {
+                        "pvf_type": "number",
+                        "pvf_value": 0.0
+                    },
+                    "yaw": {
+                        "pvf_type": "number",
+                        "pvf_value": 0.0
+                    }
+                },
+                "robot_name": {
+                    "pvf_type": "string",
+                    "pvf_value": "vaultbot_sim"
+                }
+            },
+            "children": [
+                {
+                    "name": "TaNavigateRobot",
+                    "id": 0
+                }
+            ],
+            "parents": [
+                {
+                    "name": "TaNavigateRobot",
+                    "id": 1,
+                    "required": true
+                }
+            ]
+        }
+    ]
+}

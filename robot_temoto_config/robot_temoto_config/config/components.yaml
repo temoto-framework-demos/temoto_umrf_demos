@@ -1,0 +1,7 @@
+Components:
+- component_name: "keyboard twist msg publisher"
+  component_type: "joystick_twist"
+  package_name: "robot_temoto_config"
+  executable:  "keyboard_twist.launch"
+  input_topics:
+    twist_topic: "cmd_vel"

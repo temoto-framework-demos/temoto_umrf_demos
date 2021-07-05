@@ -1,0 +1,10 @@
+{
+    "name": "TaRobotKeyboardTwist",
+    "package_name": "ta_robot_keyboard_twist",
+    "effect": "asynchronous",
+    "input_parameters": {
+        "robot_name": {
+            "pvf_type": "string"
+        }
+    }
+}

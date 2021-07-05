@@ -1,0 +1,6 @@
+[submodule "temoto"]
+	path = temoto
+	url = https://github.com/temoto-telerobotics/temoto
+[submodule "robot_support_pkgs/husky"]
+	path = robot_support_pkgs/husky
+	url = https://github.com/husky/husky

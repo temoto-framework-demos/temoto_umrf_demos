@@ -1,0 +1,21 @@
+{
+    "name": "TaNavigateRobot",
+    "package_name": "ta_navigate_robot",
+    "effect": "synchronous",
+    "input_parameters": {
+        "robot_name": {
+            "pvf_type": "string"
+        },
+        "pose_2d": {
+            "x": {
+                "pvf_type": "number"
+            },
+            "y": {
+                "pvf_type": "number"
+            },
+            "yaw": {
+                "pvf_type": "number"
+            }
+        }
+    }
+}
