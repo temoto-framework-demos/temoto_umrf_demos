@@ -1,0 +1,23 @@
+<?xml version='1.0'?>
+<sdf version="1.4">
+  <model name="dropoff_location_model">
+    <pose>0 0 0.5 0 0 0</pose>
+    <static>true</static>
+    <link name="link">
+      <visual name="visual">
+        <geometry>
+          <cylinder>
+            <radius>1</radius>
+            <length>0.4</length>
+          </cylinder>
+        </geometry>
+        <material>
+          <ambient>1 0 0 0.3</ambient>
+          <diffuse>1 0 0 0.3</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0.2 0 0 0.1</emissive>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

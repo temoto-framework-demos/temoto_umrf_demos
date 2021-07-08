@@ -1,0 +1,10 @@
+{
+    "name": "TaStateCharge",
+    "package_name": "ta_state_charge",
+    "effect": "synchronous",
+    "input_parameters": {
+        "state": {
+            "pvf_type": "string"
+        }
+    }
+}

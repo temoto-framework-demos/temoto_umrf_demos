@@ -1,0 +1,13 @@
+{
+    "graph_name": "ta_state_initialize",
+    "graph_description": "",
+    "graph_state": 1,
+    "umrf_actions": [
+        {
+            "name": "TaStateInitialize",
+            "package_name": "ta_state_initialize",
+            "id": 0,
+            "effect": "asynchronous"
+        }
+    ]
+}

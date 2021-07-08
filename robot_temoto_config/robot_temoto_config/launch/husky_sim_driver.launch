@@ -33,7 +33,10 @@
             -unpause
             -urdf
             -param robot_description
-            -model vaultbot
+            -model husky
             -gazebo_namespace gazebo" />
+
+  <!-- Node that simulates the battery charging and discharging on husky -->
+  <node name="husky_battery_monitor" pkg="robot_temoto_config" type="battery_charge_node" />
 
 </launch>

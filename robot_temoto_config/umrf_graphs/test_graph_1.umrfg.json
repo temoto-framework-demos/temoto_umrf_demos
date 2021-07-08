@@ -1,0 +1,46 @@
+{
+    "graph_name": "test_graph_1",
+    "graph_description": "",
+    "graph_state": 0,
+    "umrf_actions": [
+        {
+            "name": "TaTestAsync1",
+            "package_name": "ta_test_async_1",
+            "id": 0,
+            "effect": "asynchronous",
+            "execute_first": true,
+            "children": [
+                {
+                    "name": "TaTestSync1",
+                    "id": 0
+                }
+            ],
+            "parents": [
+                {
+                    "name": "TaTestSync1",
+                    "id": 0,
+                    "required": false
+                }
+            ]
+        },
+        {
+            "name": "TaTestSync1",
+            "package_name": "ta_test_sync_1",
+            "id": 0,
+            "effect": "synchronous",
+            "children": [
+                {
+                    "name": "TaTestAsync1",
+                    "id": 0
+                }
+            ],
+            "parents": [
+                {
+                    "name": "TaTestAsync1",
+                    "id": 0,
+                    "required": true
+                }
+            ]
+        }
+    ]
+}

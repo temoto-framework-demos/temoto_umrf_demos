@@ -29,7 +29,21 @@ class TaInitializeRobot : public TemotoAction
 public:
 
 /*
- * Function that gets invoked when the action is executed (REQUIRED)
+ * Function that gets invoked only once (when the action is initialized) throughout the action's lifecycle
+ */
+void initializeTemotoAction()
+{
+  /* * * * * * * * * * * * * * * * * * * * * * *
+   *                          
+   * ===> YOUR INITIALIZATION ROUTINES HERE <===
+   *                          
+   * * * * * * * * * * * * * * * * * * * * * * */
+
+  TEMOTO_INFO_STREAM("Action initialized");
+}
+
+/*
+ * Function that gets invoked when the action is executed or re-executed (asynchronous action)
  */
 void executeTemotoAction()
 {
@@ -43,12 +57,6 @@ void executeTemotoAction()
   TEMOTO_INFO_STREAM("trying to get config of '" << in_param_robot_name << "' ...");
   YAML::Node robot_config = rmi_.getRobotConfig(in_param_robot_name);
   TEMOTO_INFO_STREAM("Config of robot '" << in_param_robot_name << "': " << robot_config);
-}
-
-// Default Constructor (REQUIRED)
-TaInitializeRobot()
-{
-  std::cout << __func__ << " constructed\n";
 }
 
 // Destructor

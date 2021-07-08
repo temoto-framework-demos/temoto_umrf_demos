@@ -1,0 +1,21 @@
+{
+    "name": "TaStateDispatcher",
+    "package_name": "ta_state_dispatcher",
+    "effect": "asynchronous",
+    "output_parameters": {
+        "nav_goal": {
+            "x": {
+                "pvf_type": "number"
+            },
+            "y": {
+                "pvf_type": "number"
+            },
+            "yaw": {
+                "pvf_type": "number"
+            }
+        },
+        "state": {
+            "pvf_type": "string"
+        }
+    }
+}

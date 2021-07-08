@@ -1,0 +1,202 @@
+{
+    "graph_name": "package_delivery",
+    "graph_description": "Initialize the robot, Decide the next state, Charge the robot, Navigate the robot, Pick up the package, Drop the package",
+    "graph_state": 1,
+    "umrf_actions": [
+        {
+            "name": "TaStateInitialize",
+            "package_name": "ta_state_initialize",
+            "description": "Initialize the robot",
+            "id": 0,
+            "effect": "asynchronous",
+            "children": [
+                {
+                    "name": "TaStateDispatcher",
+                    "id": 0
+                }
+            ]
+        },
+        {
+            "name": "TaStateDispatcher",
+            "package_name": "ta_state_dispatcher",
+            "id": 0,
+            "effect": "asynchronous",
+            "output_parameters": {
+                "state": {
+                    "pvf_type": "string"
+                },
+                "nav_goal": {
+                    "x": {
+                        "pvf_type": "number"
+                    },
+                    "y": {
+                        "pvf_type": "number"
+                    },
+                    "yaw": {
+                        "pvf_type": "number"
+                    }
+                }
+            },
+            "children": [
+                {
+                    "name": "TaStateCharge",
+                    "id": 0
+                },
+                {
+                    "name": "TaStateNavigate",
+                    "id": 0
+                },
+                {
+                    "name": "TaStatePickup",
+                    "id": 0
+                },
+                {
+                    "name": "TaStateDropoff",
+                    "id": 0
+                }
+            ],
+            "parents": [
+                {
+                    "name": "TaStateNavigate",
+                    "id": 0,
+                    "required": false
+                },
+                {
+                    "name": "TaStateInitialize",
+                    "id": 0,
+                    "required": false
+                },
+                {
+                    "name": "TaStateCharge",
+                    "id": 0,
+                    "required": false
+                },
+                {
+                    "name": "TaStatePickup",
+                    "id": 0,
+                    "required": false
+                },
+                {
+                    "name": "TaStateDropoff",
+                    "id": 0,
+                    "required": false
+                }
+            ]
+        },
+        {
+            "name": "TaStateCharge",
+            "package_name": "ta_state_charge",
+            "description": "Charge the robot",
+            "id": 0,
+            "effect": "synchronous",
+            "input_parameters": {
+                "state": {
+                    "pvf_type": "string",
+                    "pvf_allowed_values": "state_charge"
+                }
+            },
+            "children": [
+                {
+                    "name": "TaStateDispatcher",
+                    "id": 0
+                }
+            ],
+            "parents": [
+                {
+                    "name": "TaStateDispatcher",
+                    "id": 0,
+                    "required": true
+                }
+            ]
+        },
+        {
+            "name": "TaStateDropoff",
+            "package_name": "ta_state_dropoff",
+            "description": "Drop the package",
+            "id": 0,
+            "effect": "synchronous",
+            "input_parameters": {
+                "state": {
+                    "pvf_type": "string",
+                    "pvf_allowed_values": "state_dropoff"
+                }
+            },
+            "children": [
+                {
+                    "name": "TaStateDispatcher",
+                    "id": 0
+                }
+            ],
+            "parents": [
+                {
+                    "name": "TaStateDispatcher",
+                    "id": 0,
+                    "required": true
+                }
+            ]
+        },
+        {
+            "name": "TaStateNavigate",
+            "package_name": "ta_state_navigate",
+            "description": "Navigate the robot",
+            "id": 0,
+            "effect": "synchronous",
+            "input_parameters": {
+                "nav_goal": {
+                    "x": {
+                        "pvf_type": "number"
+                    },
+                    "y": {
+                        "pvf_type": "number"
+                    },
+                    "yaw": {
+                        "pvf_type": "number"
+                    }
+                },
+                "state": {
+                    "pvf_type": "string",
+                    "pvf_allowed_values": "state_navigate"
+                }
+            },
+            "children": [
+                {
+                    "name": "TaStateDispatcher",
+                    "id": 0
+                }
+            ],
+            "parents": [
+                {
+                    "name": "TaStateDispatcher",
+                    "id": 0,
+                    "required": true
+                }
+            ]
+        },
+        {
+            "name": "TaStatePickup",
+            "package_name": "ta_state_pickup",
+            "description": "Pick up the package",
+            "id": 0,
+            "effect": "synchronous",
+            "input_parameters": {
+                "state": {
+                    "pvf_type": "string",
+                    "pvf_allowed_values": "state_pickup"
+                }
+            },
+            "children": [
+                {
+                    "name": "TaStateDispatcher",
+                    "id": 0
+                }
+            ],
+            "parents": [
+                {
+                    "name": "TaStateDispatcher",
+                    "id": 0,
+                    "required": true
+                }
+            ]
+        }
+    ]
+}

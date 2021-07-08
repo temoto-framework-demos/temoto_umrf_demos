@@ -1,4 +1,5 @@
 #include <mutex>
+#include <chrono>
 #include "ros/ros.h"
 #include "sensor_msgs/BatteryState.h"
 #include "robot_temoto_config/SetChargeMode.h"
@@ -9,7 +10,7 @@ enum class State
   DISCHARGING
 };
 
-ros::Time previous_charge_calc_time;
+std::chrono::steady_clock::time_point previous_charge_calc_time;
 State state = State::DISCHARGING;
 ros::Publisher battery_state_pub;
 ros::ServiceServer charge_mode_server;
@@ -21,8 +22,10 @@ double charge_rate = 0.5; // charging 50% in every minute
 
 void timerCallback(const ros::TimerEvent&)
 {
-  ros::Duration time_diff = ros::Time::now() - previous_charge_calc_time;
-  double time_diff_in_minutes = time_diff.toSec() / 60;
+  double time_diff_in_minutes = std::chrono::duration_cast<std::chrono::milliseconds>(
+    std::chrono::steady_clock::now() - previous_charge_calc_time).count() / 60000.0;
+
+  ROS_INFO_STREAM("Timediff is " << time_diff_in_minutes);
 
   /*
    * Increase or decrease the charge based on the state
@@ -53,7 +56,7 @@ void timerCallback(const ros::TimerEvent&)
   battery_msg.percentage = charge_percentage;
   battery_state_pub.publish(battery_msg);
 
-  previous_charge_calc_time = ros::Time::now();
+  previous_charge_calc_time = std::chrono::steady_clock::now();
 }
 
 bool setChargeModeCb(robot_temoto_config::SetChargeMode::Request& req, robot_temoto_config::SetChargeMode::Response& res)
@@ -78,7 +81,7 @@ int main(int argc, char** argv)
   battery_state_pub = nh.advertise<sensor_msgs::BatteryState>("battery_state", 1);
   charge_mode_server = nh.advertiseService("set_charge_mode", &setChargeModeCb);
 
-  previous_charge_calc_time = ros::Time::now();
+  previous_charge_calc_time = std::chrono::steady_clock::now();
   ros::Timer timer = nh.createTimer(ros::Duration(1), timerCallback);
   ros::spin();
 }

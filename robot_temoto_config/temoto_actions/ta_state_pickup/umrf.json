@@ -1,0 +1,10 @@
+{
+    "name": "TaStatePickup",
+    "package_name": "ta_state_pickup",
+    "effect": "synchronous",
+    "input_parameters": {
+        "state": {
+            "pvf_type": "string"
+        }
+    }
+}

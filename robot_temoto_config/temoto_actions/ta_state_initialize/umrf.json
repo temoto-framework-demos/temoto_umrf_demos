@@ -1,0 +1,5 @@
+{
+    "name": "TaStateInitialize",
+    "package_name": "ta_state_initialize",
+    "effect": "asynchronous"
+}

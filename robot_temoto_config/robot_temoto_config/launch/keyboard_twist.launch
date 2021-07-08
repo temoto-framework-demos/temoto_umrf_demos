@@ -1,7 +1,0 @@
-<?xml version="1.0"?>
-<launch>
-  <arg name="twist_topic" default="cmd_vel"/>
-  <node name="keyboard_twist" pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" output="screen" launch-prefix="xterm -e">
-    <remap from="cmd_vel" to="$(arg twist_topic)"/>
-  </node>
-</launch>

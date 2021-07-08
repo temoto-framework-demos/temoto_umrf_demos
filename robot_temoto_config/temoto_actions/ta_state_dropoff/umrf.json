@@ -1,0 +1,10 @@
+{
+    "name": "TaStateDropoff",
+    "package_name": "ta_state_dropoff",
+    "effect": "synchronous",
+    "input_parameters": {
+        "state": {
+            "pvf_type": "string"
+        }
+    }
+}

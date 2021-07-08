@@ -1,4 +1,4 @@
 <?xml version="1.0"?>
 <launch>
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robot_temoto_config)/config/vaultbot_sim_test.rviz" output="screen"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robot_temoto_config)/config/husky_sim_test.rviz" output="screen"/>
 </launch>
