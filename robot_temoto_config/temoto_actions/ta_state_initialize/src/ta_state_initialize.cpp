@@ -20,6 +20,7 @@
 #include <class_loader/class_loader.hpp>
 #include "ta_state_initialize/temoto_action.h"
 #include "temoto_robot_manager/robot_manager_interface.h"
+#include "temoto_er_manager/temoto_er_manager_interface.h"
 
 /* 
  * ACTION IMPLEMENTATION of TaStateInitialize 
@@ -35,7 +36,16 @@ void executeTemotoAction()
 {
   TEMOTO_INFO_STREAM("initializing robot " << robot_name_ << "...");
   rmi_.initialize();
+  ermi_.initialize();
   rmi_.loadRobot(robot_name_);
+
+  temoto_er_manager::LoadExtResource load_resource_srvmsg;
+  load_resource_srvmsg.request.action = temoto_er_manager::action::ROS_EXECUTE;
+  load_resource_srvmsg.request.package_name = "robot_temoto_config";
+  load_resource_srvmsg.request.executable = "load_gazebo_markers.launch";
+  load_resource_srvmsg.request.ros_namespace = "robot_manager/robots/husky_sim";
+  ermi_.loadResource(load_resource_srvmsg);
+
   TEMOTO_INFO_STREAM("The robot is initialized");
 }
 
@@ -50,6 +60,7 @@ void executeTemotoAction()
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 temoto_robot_manager::RobotManagerInterface rmi_;
+temoto_er_manager::ERManagerInterface ermi_;
 std::string robot_name_ = "husky_sim";
 
 }; // TaStateInitialize class

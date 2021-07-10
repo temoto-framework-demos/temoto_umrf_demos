@@ -1,5 +1,5 @@
 {
-    "graph_name": "package_delivery",
+    "graph_name": "cargo_delivery",
     "graph_description": "Initialize the robot, Decide the next state, Charge the robot, Navigate the robot, Pick up the package, Drop the package",
     "graph_state": 1,
     "umrf_actions": [

@@ -37,11 +37,6 @@ void executeTemotoAction()
   getInputParameters();
   rmi_.initialize();
 
-  TEMOTO_INFO("Moving to [%f, %f, %f] ..."
-  , in_param_nav_goal_x
-  , in_param_nav_goal_y
-  , in_param_nav_goal_yaw);
-
   /*
    * Move the robot
    */
@@ -54,7 +49,10 @@ void executeTemotoAction()
   while (!goal_reached && actionOk())
   try
   {
-    TEMOTO_INFO_STREAM_("Sending a navigation goal to " << robot_name_ << " ...");
+    TEMOTO_INFO("Moving to location [x = %.2f m; y = %.2f m; yaw = %.2f rad] ..."
+    , in_param_nav_goal_x
+    , in_param_nav_goal_y
+    , in_param_nav_goal_yaw);
     rmi_.navigationGoal(robot_name_, "map", target_pose);
 
     TEMOTO_INFO_STREAM_("Done navigating");
@@ -64,8 +62,6 @@ void executeTemotoAction()
   {
     TEMOTO_WARN_STREAM_("Caught an error: " << e.what() << "\nRequesting the same navigation goal again ... ");
   }
-
-  TEMOTO_INFO_STREAM("Done navigating");
 }
 
 // Destructor

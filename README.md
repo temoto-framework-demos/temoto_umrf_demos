@@ -44,3 +44,26 @@ roslaunch robot_temoto_config husky_sim_viz.launch
 ```
 RViz should pop up and you should see the map, robot and lidar data. Use the `2D Nav Goal` tool to move the robot 
 somewhere within the map. If the robot performs sucessfully, then the simulation is set up properly.
+
+# Run the cargo delivery state machine example
+First run TeMoto:
+```bash
+roslaunch robot_temoto_config temoto.launch
+```
+
+Open another terminal and go to the umrf graphs directory
+```bash
+roscd robot_temoto_config/../umrf_graphs
+```
+
+Invoke the UMRF graph that embeds the cargo delivery task:
+```bash
+rosrun temoto_action_engine parser_node cargo_delivery.umrfg.json my_temoto
+```
+
+In order to stop the cargo delivery task, run:
+```bash
+rostopic pub /broadcast_stop_umrf_graph temoto_action_engine/BroadcastStopUmrfGraph "graph_name: 'cargo_delivery'
+targets:
+- 'my_temoto'"
+```

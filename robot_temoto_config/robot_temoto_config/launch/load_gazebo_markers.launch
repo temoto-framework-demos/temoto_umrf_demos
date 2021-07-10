@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Spawn the markers in gazebo -->
+  <node name="spawn_charger_marker_model" pkg="gazebo_ros" type="spawn_model"
+      args="-x 0
+            -y 0
+            -z -0.2
+            -Y 0
+            -unpause
+            -file $(find robot_temoto_config)/launch/include/charger_location_marker.sdf
+            -sdf
+            -model charger_marker_model
+            -gazebo_namespace gazebo" />
+
+  <node name="spawn_pickup_marker_model" pkg="gazebo_ros" type="spawn_model"
+      args="-x -7
+            -y 2
+            -z -0.2
+            -Y 0
+            -unpause
+            -file $(find robot_temoto_config)/launch/include/pickup_location_marker.sdf
+            -sdf
+            -model pickup_marker_model
+            -gazebo_namespace gazebo" />
+
+  <node name="spawn_dropoff_marker_model" pkg="gazebo_ros" type="spawn_model"
+      args="-x -5
+            -y -5
+            -z -0.2
+            -Y 0
+            -unpause
+            -file $(find robot_temoto_config)/launch/include/dropoff_location_marker.sdf
+            -sdf
+            -model dropoff_marker_model
+            -gazebo_namespace gazebo" />
+
+  <node name="dummy_rostopic_echo" pkg="rostopic" type="rostopic" args="echo /thistopicshouldnotexist" />
+
+</launch>

@@ -12,10 +12,10 @@
           </cylinder>
         </geometry>
         <material>
-          <ambient>1 0 0 0.3</ambient>
-          <diffuse>1 0 0 0.3</diffuse>
+          <ambient>0 1 0 0.3</ambient>
+          <diffuse>0 1 0 0.3</diffuse>
           <specular>0.1 0.1 0.1 1</specular>
-          <emissive>0.2 0 0 0.1</emissive>
+          <emissive>0 0.3 0 0.1</emissive>
         </material>
       </visual>
     </link>

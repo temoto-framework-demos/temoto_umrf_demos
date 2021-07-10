@@ -45,8 +45,6 @@ void initializeTemotoAction()
  */
 void executeTemotoAction()
 {
-  TEMOTO_INFO_STREAM("Returned from state '" << current_state_ << "'. Deciding on the next state ...");
-
   // If the queue is empty then add new states to the queue
   if (state_transition_sequence_.empty())
   {
@@ -54,8 +52,10 @@ void executeTemotoAction()
   }
 
   // If the robot has to be charged then add a charging and navigation states in front of the state queue
-  if (robot_must_charge_)
+  if (robot_must_charge_ && !charging_state_queued_)
   {
+    TEMOTO_WARN("The robot must be charged");
+
     // Pick up or drop off the package before moving to the charger
     if (state_transition_sequence_.front() != "state_navigate")
     {
@@ -70,6 +70,7 @@ void executeTemotoAction()
       state_transition_sequence_.push_front("state_charge");
       state_transition_sequence_.push_front("state_navigate");
     }
+    charging_state_queued_ = true;
   }
 
   // If the next state is navigation state, then assign the appropriate coordinates based on proceeding state
@@ -97,11 +98,9 @@ void executeTemotoAction()
     }
   }
 
-  current_state_ = state_transition_sequence_.front();
+  TEMOTO_INFO_STREAM("Returned from state '" << out_param_state << "'. Switching to state '" << state_transition_sequence_.front() << "'");
+  out_param_state = state_transition_sequence_.front();
   state_transition_sequence_.pop_front();
-
-  TEMOTO_INFO_STREAM("Dispatching state '" << current_state_ << "'");
-  out_param_state = current_state_;
   setOutputParameters();
 }
 
@@ -114,6 +113,7 @@ void batteryStateCallback(const sensor_msgs::BatteryState& msg)
   else
   {
     robot_must_charge_ = false;
+    charging_state_queued_ = false;
   }
 }
 
@@ -147,9 +147,9 @@ std::string out_param_state;
 // Other action specific members
 ros::NodeHandle nh_;
 ros::Subscriber battery_state_sub_;
-std::string current_state_;
 float battery_min_charge_percentage_ = 0.9;
 bool robot_must_charge_ = false;
+bool charging_state_queued_ = false;
 
 // const std::map<std::string, std::string> next_state_transition = 
 // { {"state_initialize", "state_pickup"}
