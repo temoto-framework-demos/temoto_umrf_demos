@@ -46,6 +46,27 @@ RViz should pop up and you should see the map, robot and lidar data. Use the `2D
 somewhere within the map. If the robot performs sucessfully, then the simulation is set up properly.
 
 # Run the cargo delivery state machine example
+
+This example shows how UMRF graph can describe a state machine based automation. The underlying task in this example is to transport "cargo" from a pick-up location to drop-off location. Additionally the robot has a simulated battery which must be charged whenever it discharges below a predefined threshold. Thus there are six states in the state machine, with following possible transitions:
+
+<p align="center">
+  <img src="docs/figures/cargo_delivery_umrf_states.png" alt="Enabling features" class="center" width="290"/>
+</p>
+
+* **Initialize** - Loads the simulated robot and places markers of the charging, pick-up and drop-off locations into the simulated world. The ROS-based robot also contains a ROS node that simulates a continuously discharging battery, which can be set to charge via a ROS service. The feedback on battery's state is provided via `sensor_msgs::BatteryState` ROS message. 
+* **Navigate** - Makes the robot navigate to the desired goal loacation provided via UMRF parameters. The navigation is performed via [TeMoto Robot Manager](https://github.com/temoto-telerobotics/temoto_robot_manager).
+* **Pick-up** - Emulates the cargo pick-up routine. This state is just a placeholder, no actual cargo is picked up.
+* **Drop-off** - Emulates the cargo drop-off routine. This state is just a placeholder, no actual cargo is dropped off.
+* **Charge** - Charges the simulated battery by invoking the charging ROS service in the battery manager node.
+* **Dispatch** - Decides how the *navigation*, *pick-up*, *drop-off* and *charging* states should be sequenced. Each of the aforementioned four states accept a UMRF parameter named `state` and via `pvf_allowed_values` the transition to a specific state, e.g., *navigate*, happens only if the right state name is used. For example if the *dispatch* state outputs `state=navigate`, then out of the four possible transitions, only the *navigation* state is invoked.
+
+Screenshot of the simulated world with the charging, pick-up, drop-off locations and the robot:
+<p align="center">
+  <img src="docs/figures/cargo_delivery_scene_annotated.png" alt="Enabling features" class="center" width="500"/>
+</p>
+
+## Running the demo
+
 First run TeMoto:
 ```bash
 roslaunch robot_temoto_config temoto.launch
