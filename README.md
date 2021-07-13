@@ -45,7 +45,78 @@ roslaunch robot_temoto_config husky_sim_viz.launch
 RViz should pop up and you should see the map, robot and lidar data. Use the `2D Nav Goal` tool to move the robot 
 somewhere within the map. If the robot performs sucessfully, then the simulation is set up properly.
 
-# Run the cargo delivery state machine example
+# Sequential and cyclical navigation actions example
+
+This example shows UMRF notation can be used to define tasks that contain sequences and/or cycles. The underlying task in this example is to navigate through predefined waypoints, as shown below:
+
+<p align="center">
+  <img src="docs/figures/nav_demo_scene_annotated.png" alt="Enabling features" class="center" width="600"/>
+</p>
+
+A [navigation action](https://github.com/temoto-telerobotics-demos/temoto_umrf_demos/tree/main/robot_temoto_config/temoto_actions/ta_navigate_robot) is used as the basis of the examples. The navigation action accepts navigation coordinates via UMRF input parameters:
+
+```json
+"name": "TaNavigateRobot",
+"effect": "synchronous",
+"input_parameters": {
+    "robot_name": {
+        "pvf_type": "string"
+    },
+    "nav_goal": {
+        "x": {
+            "pvf_type": "number"
+        },
+        "y": {
+            "pvf_type": "number"
+        },
+        "yaw": {
+            "pvf_type": "number"
+        }
+    }
+}
+```
+
+By combining such UMRF descriptions in the UMRF graph via parent/child relations, more complex behaviours can be achieved, including [sequences](https://github.com/temoto-telerobotics-demos/temoto_umrf_demos/blob/main/robot_temoto_config/umrf_graphs/navigation_demo_sequence.umrfg.json) and [cycles](https://github.com/temoto-telerobotics-demos/temoto_umrf_demos/blob/main/robot_temoto_config/umrf_graphs/navigation_demo_cycle.umrfg.json):
+
+<p align="center">
+  <img src="docs/figures/navigation_umrf_graphs.png" alt="Enabling features" class="center" width="550"/>
+</p>
+
+## Running the demo
+
+First run TeMoto:
+```bash
+roslaunch robot_temoto_config temoto.launch
+```
+
+Open another terminal and go to the umrf graphs directory
+```bash
+roscd robot_temoto_config/../umrf_graphs
+```
+
+Invoke the UMRF graph that initializes the robot:
+```bash
+rosrun temoto_action_engine parser_node initialize_robot.umrfg.json my_temoto
+```
+
+Invoke the UMRF graph that starts the sequential waypoint navigation:
+```bash
+rosrun temoto_action_engine parser_node navigation_example_sequence.umrfg.json my_temoto
+```
+
+The robot should navigate through three waypoints and stop. Next invoke the UMRF graph that starts the cyclical waypoint navigation:
+```bash
+rosrun temoto_action_engine parser_node navigation_example_cycle.umrfg.json my_temoto
+```
+
+In order to stop the cyclical waypoint navigation graph, run:
+```bash
+rostopic pub /broadcast_stop_umrf_graph temoto_action_engine/BroadcastStopUmrfGraph "graph_name: 'navigation_example_cycle'
+targets:
+- 'my_temoto'"
+```
+
+# Cargo delivery state machine example
 
 This example shows how UMRF graph can describe a state machine based automation. The underlying task in this example is to transport "cargo" from a pick-up location to drop-off location. Additionally the robot has a simulated battery which must be charged whenever it discharges below a predefined threshold. Thus there are six states in the state machine, with following possible transitions:
 
@@ -88,9 +159,3 @@ rostopic pub /broadcast_stop_umrf_graph temoto_action_engine/BroadcastStopUmrfGr
 targets:
 - 'my_temoto'"
 ```
-
-# wsdfs
-
-<p align="center">
-  <img src="docs/figures/navigation_umrf_graphs.png" alt="Enabling features" class="center" width="600"/>
-</p>
