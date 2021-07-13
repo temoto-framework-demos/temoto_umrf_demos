@@ -91,7 +91,7 @@ void executeTemotoAction()
     {
       out_param_nav_goal_x = -5;
       out_param_nav_goal_y = -5;
-      out_param_nav_goal_yaw = 0;
+      out_param_nav_goal_yaw = -1.57;
     }
     else if (next_state == "state_charge")
     {

@@ -42,7 +42,8 @@
   <depend>temoto_action_engine</depend>
   <depend>temoto_core</depend>
   <depend>temoto_robot_manager</depend>
-  <depend>temoto_er_manager</depend>
+  <depend>gazebo_msgs</depend>
+  <depend>gazebo_ros_link_attacher</depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

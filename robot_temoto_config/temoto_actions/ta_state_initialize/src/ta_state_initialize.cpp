@@ -17,10 +17,12 @@
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+#include <fstream>
 #include <class_loader/class_loader.hpp>
 #include "ta_state_initialize/temoto_action.h"
 #include "temoto_robot_manager/robot_manager_interface.h"
-#include "temoto_er_manager/temoto_er_manager_interface.h"
+#include "gazebo_msgs/SpawnModel.h"
+#include "ros/package.h"
 
 /* 
  * ACTION IMPLEMENTATION of TaStateInitialize 
@@ -36,17 +38,36 @@ void executeTemotoAction()
 {
   TEMOTO_INFO_STREAM("initializing robot " << robot_name_ << "...");
   rmi_.initialize();
-  ermi_.initialize();
   rmi_.loadRobot(robot_name_);
 
-  temoto_er_manager::LoadExtResource load_resource_srvmsg;
-  load_resource_srvmsg.request.action = temoto_er_manager::action::ROS_EXECUTE;
-  load_resource_srvmsg.request.package_name = "robot_temoto_config";
-  load_resource_srvmsg.request.executable = "load_gazebo_markers.launch";
-  load_resource_srvmsg.request.ros_namespace = "robot_manager/robots/husky_sim";
-  ermi_.loadResource(load_resource_srvmsg);
+  /*
+   * Get the SDF description of the location markers
+   */
+  spawn_model_srvclient_ = nh_.serviceClient<gazebo_msgs::SpawnModel>("robot_manager/robots/husky_sim/gazebo/spawn_sdf_model");
+  model_base_path_ = ros::package::getPath("robot_temoto_config") + "/launch/include";
+
+  spawnModel("charger_location_marker", 0, 0);
+  spawnModel("pickup_location_marker", -7, 2);
+  spawnModel("dropoff_location_marker", -5, -5);
 
   TEMOTO_INFO_STREAM("The robot is initialized");
+}
+
+void spawnModel(std::string model_name, double x, double y)
+{
+  std::ifstream ifs(model_base_path_ + "/" + model_name + ".sdf");
+  std::string content( (std::istreambuf_iterator<char>(ifs) ), (std::istreambuf_iterator<char>()));
+
+  gazebo_msgs::SpawnModel spawn_model_srvmsg;
+  spawn_model_srvmsg.request.model_name = model_name;
+  spawn_model_srvmsg.request.model_xml = content;
+  spawn_model_srvmsg.request.initial_pose.position.x = x;
+  spawn_model_srvmsg.request.initial_pose.position.y = y;
+  spawn_model_srvmsg.request.initial_pose.position.z = -0.2;
+  spawn_model_srvmsg.request.initial_pose.orientation.w = 1;
+  spawn_model_srvmsg.request.reference_frame = "world";
+
+  spawn_model_srvclient_.call(spawn_model_srvmsg);
 }
 
 // Destructor
@@ -59,9 +80,11 @@ void executeTemotoAction()
  * Class members
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+ros::NodeHandle nh_;
+ros::ServiceClient spawn_model_srvclient_;
 temoto_robot_manager::RobotManagerInterface rmi_;
-temoto_er_manager::ERManagerInterface ermi_;
 std::string robot_name_ = "husky_sim";
+std::string model_base_path_;
 
 }; // TaStateInitialize class
 

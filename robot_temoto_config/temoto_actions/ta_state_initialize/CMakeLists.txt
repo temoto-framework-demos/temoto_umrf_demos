@@ -18,7 +18,8 @@ find_package(catkin REQUIRED COMPONENTS
   temoto_action_engine
   temoto_core
   temoto_robot_manager
-  temoto_er_manager
+  gazebo_msgs
+  roslib
 )
 
 catkin_package()
