@@ -1,17 +1,18 @@
 {
-    "graph_name": "vaultbot_keyboard_teleop",
+    "graph_name": "initialize_robot",
     "graph_description": "",
     "graph_state": 1,
     "umrf_actions": [
         {
-            "name": "TaRobotKeyboardTwist",
-            "package_name": "ta_robot_keyboard_twist",
+            "name": "TaInitializeRobot",
+            "package_name": "ta_initialize_robot",
+            "description": "Initializes the simulated robot",
             "id": 0,
             "effect": "asynchronous",
             "input_parameters": {
                 "robot_name": {
                     "pvf_type": "string",
-                    "pvf_value": "vaultbot_sim"
+                    "pvf_value": "husky_sim"
                 }
             }
         }

@@ -17,6 +17,9 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
   temoto_action_engine
   temoto_core
+  gazebo_msgs
+  gazebo_ros_link_attacher
+  roslib
 )
 
 catkin_package()

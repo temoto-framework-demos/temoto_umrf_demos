@@ -9,7 +9,7 @@
             "id": 0,
             "effect": "synchronous",
             "input_parameters": {
-                "pose_2d": {
+                "nav_goal": {
                     "x": {
                         "pvf_type": "number",
                         "pvf_value": 5.0

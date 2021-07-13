@@ -18,6 +18,7 @@
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 #include <deque>
+#include <mutex>
 #include <class_loader/class_loader.hpp>
 #include "ta_state_dispatcher/temoto_action.h"
 #include "ros/ros.h"
@@ -45,6 +46,8 @@ void initializeTemotoAction()
  */
 void executeTemotoAction()
 {
+  std::lock_guard<std::mutex> l(shared_states_mutex_);
+  
   // If the queue is empty then add new states to the queue
   if (state_transition_sequence_.empty())
   {
@@ -106,6 +109,7 @@ void executeTemotoAction()
 
 void batteryStateCallback(const sensor_msgs::BatteryState& msg)
 {
+  std::lock_guard<std::mutex> l(shared_states_mutex_);
   if (msg.percentage < battery_min_charge_percentage_)
   {
     robot_must_charge_ = true;
@@ -147,16 +151,10 @@ std::string out_param_state;
 // Other action specific members
 ros::NodeHandle nh_;
 ros::Subscriber battery_state_sub_;
-float battery_min_charge_percentage_ = 0.9;
+float battery_min_charge_percentage_ = 0.85;
 bool robot_must_charge_ = false;
 bool charging_state_queued_ = false;
-
-// const std::map<std::string, std::string> next_state_transition = 
-// { {"state_initialize", "state_pickup"}
-// , {"state_pickup", "state_dropoff"}
-// , {"state_charge", "state_pickup"}
-// , {"state_dropoff", "state_pickup"}};
-
+std::mutex shared_states_mutex_;
 std::deque<std::string> state_transition_sequence_;
 
 }; // TaStateDispatcher class

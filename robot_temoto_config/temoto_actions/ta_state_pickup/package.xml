@@ -41,6 +41,9 @@
   <depend>class_loader</depend>
   <depend>temoto_action_engine</depend>
   <depend>temoto_core</depend>
+  <depend>gazebo_msgs</depend>
+  <depend>roslib</depend>
+  <depend>gazebo_ros_link_attacher</depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

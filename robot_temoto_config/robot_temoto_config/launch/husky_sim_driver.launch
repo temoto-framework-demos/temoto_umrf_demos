@@ -10,7 +10,14 @@
   <arg name="yaw" default="0.0"/>
 
   <!-- Launch gazebo-->
-  <include file="$(find husky_gazebo)/launch/playpen.launch" />
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find robot_temoto_config)/worlds/clearpath_playpen.world"/>
+    <arg name="paused" value="false"/>
+    <arg name="use_sim_time" value="true"/>
+    <arg name="gui" value="true"/>
+    <arg name="headless" value="false"/>
+    <arg name="debug" value="false"/>
+  </include>
 
   <include file="$(find husky_control)/launch/control.launch">
     <arg name="multimaster" value="false"/>

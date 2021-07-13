@@ -19,6 +19,7 @@
 
 #include <class_loader/class_loader.hpp>
 #include "ta_state_dropoff/temoto_action.h"
+#include "gazebo_msgs/DeleteModel.h"
 
 /* 
  * ACTION IMPLEMENTATION of TaStateDropoff 
@@ -34,7 +35,12 @@ void executeTemotoAction()
 {
   getInputParameters();
   TEMOTO_INFO_STREAM("Dropping off the cargo ...");
-  ros::Duration(2).sleep();
+  
+  delete_model_srvclient_ = nh_.serviceClient<gazebo_msgs::DeleteModel>("robot_manager/robots/husky_sim/gazebo/delete_model");
+  gazebo_msgs::DeleteModel delete_model_srvmsg;
+  delete_model_srvmsg.request.model_name = "dummy_cargo";
+  delete_model_srvclient_.call(delete_model_srvmsg);
+
   TEMOTO_INFO_STREAM("Done dropping off the cargo");
 }
 
@@ -61,6 +67,10 @@ void setOutputParameters()
 
 // Declaration of input parameters
 std::string in_param_state;
+
+// Other members
+ros::NodeHandle nh_;
+ros::ServiceClient delete_model_srvclient_;
 
 
 }; // TaStateDropoff class

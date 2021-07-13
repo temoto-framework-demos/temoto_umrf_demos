@@ -6,7 +6,7 @@
         "robot_name": {
             "pvf_type": "string"
         },
-        "pose_2d": {
+        "nav_goal": {
             "x": {
                 "pvf_type": "number"
             },

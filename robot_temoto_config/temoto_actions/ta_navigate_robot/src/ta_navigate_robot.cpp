@@ -41,9 +41,9 @@ void executeTemotoAction()
    * Move the robot
    */
   geometry_msgs::PoseStamped target_pose;
-  target_pose.pose.position.x = in_param_pose_2d_x;
-  target_pose.pose.position.y = in_param_pose_2d_y;
-  target_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0, 0, in_param_pose_2d_yaw);
+  target_pose.pose.position.x = in_param_nav_goal_x;
+  target_pose.pose.position.y = in_param_nav_goal_y;
+  target_pose.pose.orientation = tf::createQuaternionMsgFromRollPitchYaw(0, 0, in_param_nav_goal_yaw);
 
   bool goal_reached = false;
   while (!goal_reached && actionOk())
@@ -77,9 +77,9 @@ TaNavigateRobot()
 void getInputParameters()
 {
   in_param_robot_name = GET_PARAMETER("robot_name", std::string);
-  in_param_pose_2d_x = GET_PARAMETER("pose_2d::x", double);
-  in_param_pose_2d_y = GET_PARAMETER("pose_2d::y", double);
-  in_param_pose_2d_yaw = GET_PARAMETER("pose_2d::yaw", double);
+  in_param_nav_goal_x = GET_PARAMETER("nav_goal::x", double);
+  in_param_nav_goal_y = GET_PARAMETER("nav_goal::y", double);
+  in_param_nav_goal_yaw = GET_PARAMETER("nav_goal::yaw", double);
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
@@ -90,9 +90,9 @@ temoto_robot_manager::RobotManagerInterface rmi_;
 
 // Declaration of input parameters
 std::string in_param_robot_name;
-double in_param_pose_2d_x;
-double in_param_pose_2d_y;
-double in_param_pose_2d_yaw;
+double in_param_nav_goal_x;
+double in_param_nav_goal_y;
+double in_param_nav_goal_yaw;
 
 
 }; // TaNavigateRobot class

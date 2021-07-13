@@ -1,0 +1,42 @@
+<?xml version='1.0'?>
+<sdf version="1.4">
+  <model name="cargo">
+    <pose>0 0 0.5 0 0 0</pose>
+    <static>false</static>
+    <link name="link">
+      <gravity>0</gravity>
+      <inertial>
+        <mass>0.1</mass>
+        <pose>0.0 0.0 0.0 0 0 0</pose>
+        <inertia>
+          <ixx>0.01</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.01</iyy>
+          <iyz>0</iyz>
+          <izz>0.01</izz>
+        </inertia>
+      </inertial>
+      <collision name="das_collision">
+        <geometry>
+          <box>
+            <size>0.5 0.5 0.5</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.4 0.4 0.4</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.5 0.5 0.5 1</ambient>
+          <diffuse>0.5 0.5 0.5 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+          <emissive>0.2 0 0 0.1</emissive>
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>

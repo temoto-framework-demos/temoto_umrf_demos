@@ -23,7 +23,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package()
 
 ###########
-## Build ##
+## Build ## 
 ###########
 
 include_directories(

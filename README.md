@@ -88,3 +88,9 @@ rostopic pub /broadcast_stop_umrf_graph temoto_action_engine/BroadcastStopUmrfGr
 targets:
 - 'my_temoto'"
 ```
+
+# wsdfs
+
+<p align="center">
+  <img src="docs/figures/navigation_umrf_graphs.png" alt="Enabling features" class="center" width="600"/>
+</p>

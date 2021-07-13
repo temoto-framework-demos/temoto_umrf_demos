@@ -4,3 +4,6 @@
 [submodule "robot_support_pkgs/husky"]
 	path = robot_support_pkgs/husky
 	url = https://github.com/husky/husky
+[submodule "robot_support_pkgs/gazebo_ros_link_attacher"]
+	path = robot_support_pkgs/gazebo_ros_link_attacher
+	url = https://github.com/mehditlili/gazebo_ros_link_attacher
