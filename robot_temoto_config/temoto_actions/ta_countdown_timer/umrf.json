@@ -1,0 +1,10 @@
+{
+    "name": "TaCountdownTimer",
+    "package_name": "ta_countdown_timer",
+    "effect": "synchronous",
+    "input_parameters": {
+        "count_from": {
+            "pvf_type": "number"
+        }
+    }
+}
