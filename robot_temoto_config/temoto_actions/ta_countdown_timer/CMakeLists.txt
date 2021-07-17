@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   class_loader
   roscpp
   rospy
+  std_msgs
   temoto_action_engine
   temoto_core
 )

@@ -20,6 +20,7 @@
 #include <thread>
 #include <class_loader/class_loader.hpp>
 #include "ta_countdown_timer/temoto_action.h"
+#include "std_msgs/Int32.h"
 
 /* 
  * ACTION IMPLEMENTATION of TaCountdownTimer 
@@ -49,11 +50,17 @@ void executeTemotoAction()
 {
   getInputParameters();
 
+  ros::NodeHandle nh;
+  ros::Publisher countdown_pub = nh.advertise<std_msgs::Int32>("countdown_timer", 1);
+  std_msgs::Int32 countdown_msg;
+
   TEMOTO_INFO_STREAM("Starting to count down from " << in_param_count_from);
-  for (unsigned int i=in_param_count_from; i>0; i--)
+  for (int i=in_param_count_from; i>=0; i--)
   {
     TEMOTO_INFO_STREAM(i << " seconds remaining ...");
     std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    countdown_msg.data = i;
+    countdown_pub.publish(countdown_msg);
   }
   TEMOTO_INFO("Countdown finished");
 }

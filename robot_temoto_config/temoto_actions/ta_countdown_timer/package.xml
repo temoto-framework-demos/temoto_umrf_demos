@@ -38,6 +38,7 @@
 
   <depend>roscpp</depend>>
   <depend>rospy</depend>
+  <depend>std_msgs</depend>
   <depend>class_loader</depend>
   <depend>temoto_action_engine</depend>
   <depend>temoto_core</depend>
