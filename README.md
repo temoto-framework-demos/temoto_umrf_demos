@@ -1,5 +1,6 @@
 # temoto_umrf_demos
-This is a setup package for replicating the ROS + husky simulation-based demonstrations presented the journal paper *"Unified Meaning Representation Format (UMRF) - A Task Description and Execution Formalism for HRI"*
+This is a setup package for replicating the ROS + husky simulation-based demonstrations presented the journal paper:
+>Robert Valner, Selma Wanna, Karl Kruusamäe, and Mitch Pryor. 2022. ***Unified Meaning Representation Format (UMRF) - A Task Description and Execution Formalism for HRI***. J. Hum.-Robot Interact. (January 2022). https://doi.org/10.1145/3522580
 
 # Installation
 ```bash
